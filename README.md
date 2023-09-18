@@ -2,12 +2,12 @@
 
 A new Flutter project.
 
-## Getting Started
+## Feature of App
 
-This project is a starting point for a Flutter application.
+<div>
+<ima scr "https://github.com/shadymohamed532001/Notely/assets/126605393/a0995555-7342-4e61-99d6-3198cb6ed6ee">
 
-A few resources to get you started if this is your first Flutter project:
-![Simulator Screenshot - iPhone 14 Pro - 2023-09-19 at 02 19 54](https://github.com/shadymohamed532001/Notely/assets/126605393/a0995555-7342-4e61-99d6-3198cb6ed6ee)
+
 
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
