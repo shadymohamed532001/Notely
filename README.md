@@ -4,10 +4,6 @@ A new Flutter project.
 
 ## Feature of App
 
-<div>
-<ima scr "https://github.com/shadymohamed532001/Notely/assets/126605393/a0995555-7342-4e61-99d6-3198cb6ed6ee">
-
-
 
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
