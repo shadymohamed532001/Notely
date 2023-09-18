@@ -133,13 +133,7 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
               ),
               const CutomHellowBar(),
               Expanded(
-                child: BlocProvider.of<NotesCubit>(context).NotesList != null
-                    ? NotesListViews()
-                    : Container(
-                        width: 100,
-                        height: 100,
-                        color: Colors.black,
-                      ),
+                child: NotesListViews(),
               )
             ]),
           ),
