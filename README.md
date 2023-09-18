@@ -3,6 +3,7 @@
 A new Flutter project.
 
 ## Feature of App
+![Simulator Screenshot - iPhone 14 Pro - 2023-09-19 at 02 19 54](https://github.com/shadymohamed532001/Notely/assets/126605393/9e5d6caa-9833-4aff-a2f9-5a17a0eeac78 | width = 100)
 
 
 
