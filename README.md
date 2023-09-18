@@ -1,4 +1,4 @@
-# notely
+# notely Flutter Application
 
 A new Flutter project.
 
