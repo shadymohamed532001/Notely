@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 
 class CustomBottom extends StatelessWidget {
   const CustomBottom(
-      {super.key, required this.title, this.icon, this.onPressed, this.width});
+      {super.key,
+      required this.title,
+      this.icon,
+      this.backgroundColor,
+      this.onPressed,
+      this.width});
 
   final String title;
   final IconData? icon;
   final void Function()? onPressed;
   final double? width;
+  final Color? backgroundColor;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +27,7 @@ class CustomBottom extends StatelessWidget {
             style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24)),
-                backgroundColor: Colors.white.withOpacity(0.6)),
+                backgroundColor: backgroundColor),
             onPressed: onPressed,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

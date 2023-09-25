@@ -55,6 +55,7 @@ class HomeView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CustomBottom(
+                    backgroundColor: Colors.white.withOpacity(0.6),
                     width: 200,
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(context,

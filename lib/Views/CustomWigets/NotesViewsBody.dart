@@ -21,6 +21,9 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
 
   Widget _buildSearchfiled() {
     return TextField(
+      onTapOutside: (event) {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       onChanged: (searchednote) {
         addserchedforitemstolist(searchednote);
       },
