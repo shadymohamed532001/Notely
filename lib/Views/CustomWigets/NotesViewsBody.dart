@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notely/Models/NoteModel.dart';
@@ -99,6 +100,13 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
   @override
   void initState() {
     BlocProvider.of<NotesCubit>(context).FitchAllData();
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
     super.initState();
   }
 

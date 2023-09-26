@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notely/BlocObserver.dart';
 import 'package:notely/Models/NoteModel.dart';
 import 'package:notely/NotesCubite/cubit/notes_cubit.dart';
+import 'package:notely/Views/LoginView.dart';
+import 'package:notely/Views/RegisterView.dart';
 import 'package:notely/Views/homeview.dart';
 import 'package:notely/constans.dart';
 import 'package:notely/firebase_options.dart';
@@ -37,7 +40,9 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Poppins',
         ),
         debugShowCheckedModeBanner: false,
-        home: const HomeView(),
+        home: FirebaseAuth.instance.currentUser == null
+            ? RegisterView()
+            : HomeView(),
       ),
     );
   }
