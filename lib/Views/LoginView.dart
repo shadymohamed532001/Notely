@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notely/Views/CustomWigets/CustomTextFormFiled.dart';
 import 'package:notely/Views/CustomWigets/CutomBottom.dart';
-import 'package:notely/Views/RegisterView.dart';
-import 'package:notely/Views/notesviews.dart';
 import 'package:notely/constans.dart';
 
 class LoginView extends StatefulWidget {
@@ -39,8 +37,8 @@ class _LoginViewState extends State<LoginView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 15,
+                      const CustomSpace(
+                        Number: 15,
                       ),
                       Center(
                         child: Container(
@@ -57,8 +55,8 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 80,
+                      const CustomSpace(
+                        Number: 80,
                       ),
                       const Text(
                         'Login',
@@ -68,8 +66,8 @@ class _LoginViewState extends State<LoginView> {
                           color: Colors.black87,
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 300,
+                      const CustomSpace(
+                        Number: 300,
                       ),
                       Text(
                         'Login to continue Using this App',
@@ -78,8 +76,8 @@ class _LoginViewState extends State<LoginView> {
                           color: Colors.grey[700],
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 50,
+                      const CustomSpace(
+                        Number: 50,
                       ),
                       const Text(
                         'Email ',
@@ -101,8 +99,8 @@ class _LoginViewState extends State<LoginView> {
                         fillColor: const Color.fromRGBO(190, 183, 183, 1),
                         hintText: 'Add your Email',
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 200,
+                      const CustomSpace(
+                        Number: 200,
                       ),
                       const Text(
                         'Password ',
@@ -124,8 +122,8 @@ class _LoginViewState extends State<LoginView> {
                         fillColor: const Color.fromRGBO(190, 183, 183, 1),
                         hintText: 'Add Your Password',
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 200,
+                      const CustomSpace(
+                        Number: 200,
                       ),
                       Container(
                         alignment: Alignment.bottomRight,
@@ -136,8 +134,8 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 60,
+                      const CustomSpace(
+                        Number: 60,
                       ),
                       CustomBottom(
                         width: double.infinity,
@@ -153,10 +151,8 @@ class _LoginViewState extends State<LoginView> {
                                       email: emailcontroller.text,
                                       password: passwordcontroller.text);
 
-                              Navigator.pushAndRemoveUntil(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return NotesViews();
-                              }), (route) => false);
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, 'NoteView', (route) => false);
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'user-not-found') {
                                 print('No user found for that email.');
@@ -168,8 +164,8 @@ class _LoginViewState extends State<LoginView> {
                         },
                         icon: Icons.arrow_forward,
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 100,
+                      const CustomSpace(
+                        Number: 100,
                       ),
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -183,8 +179,8 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 80,
+                      const CustomSpace(
+                        Number: 80,
                       ),
                       CustomBottom(
                         width: double.infinity,
@@ -195,8 +191,8 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: () {},
                         icon: Icons.arrow_forward,
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 80,
+                      const CustomSpace(
+                        Number: 80,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -217,10 +213,8 @@ class _LoginViewState extends State<LoginView> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             onPressed: () {
-                              Navigator.pushAndRemoveUntil(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return const RegisterView();
-                              }), (route) => false);
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, 'RegisterView', (route) => false);
                             },
                             child: const Text(
                               'Register',

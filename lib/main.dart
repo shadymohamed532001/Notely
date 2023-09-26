@@ -9,6 +9,7 @@ import 'package:notely/NotesCubite/cubit/notes_cubit.dart';
 import 'package:notely/Views/LoginView.dart';
 import 'package:notely/Views/RegisterView.dart';
 import 'package:notely/Views/homeview.dart';
+import 'package:notely/Views/notesviews.dart';
 import 'package:notely/constans.dart';
 import 'package:notely/firebase_options.dart';
 
@@ -35,14 +36,19 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => NotesCubit(),
       child: MaterialApp(
+        routes: {
+          'LoginView': (context) => const LoginView(),
+          'RegisterView': (context) => const RegisterView(),
+          'NoteView': (context) => const NotesViews(),
+        },
         theme: ThemeData(
           // brightness: Brightness.dark,
           fontFamily: 'Poppins',
         ),
         debugShowCheckedModeBanner: false,
         home: FirebaseAuth.instance.currentUser == null
-            ? RegisterView()
-            : HomeView(),
+            ? const NotesViews()
+            : const HomeView(),
       ),
     );
   }

@@ -34,3 +34,17 @@ List<Color> colors = const [
   Color(0xffff595e),
   Color(0xff22211f),
 ];
+
+class CustomSpace extends StatelessWidget {
+  const CustomSpace({
+    super.key,
+    required this.Number,
+  });
+  final int Number;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / Number,
+    );
+  }
+}

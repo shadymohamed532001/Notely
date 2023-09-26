@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notely/Views/CustomWigets/CutomBottom.dart';
-import 'package:notely/Views/notesviews.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -77,10 +76,8 @@ class _HomeViewState extends State<HomeView> {
                     backgroundColor: Colors.white.withOpacity(0.6),
                     width: 200,
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const NotesViews();
-                      }), (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, 'LoginView', (route) => false);
                     },
                     title: 'Let\'s Start',
                     icon: Icons.arrow_forward,
