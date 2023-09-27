@@ -17,7 +17,7 @@ class AddNoteForm extends StatefulWidget {
 }
 
 class _AddNoteFormState extends State<AddNoteForm> {
-  final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
 
   String? title, subtitle;

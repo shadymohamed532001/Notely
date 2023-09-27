@@ -127,7 +127,12 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
           child: Padding(
             padding: const EdgeInsets.all(14),
             child: Column(children: [
-              const CustomAppBar(
+              CustomAppBar(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, 'HomeView', (route) => false);
+                },
                 icon: Icon(
                   Icons.menu,
                   color: Colors.black,

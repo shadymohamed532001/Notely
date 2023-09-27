@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notely/BlocObserver.dart';
 import 'package:notely/Models/NoteModel.dart';
 import 'package:notely/NotesCubite/cubit/notes_cubit.dart';
+import 'package:notely/SocialCubite/cubit/socila_cubit.dart';
 import 'package:notely/Views/LoginView.dart';
 import 'package:notely/Views/RegisterView.dart';
 import 'package:notely/Views/homeview.dart';
@@ -33,22 +34,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NotesCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => NotesCubit()),
+        BlocProvider(create: (context) => SocilaCubit()),
+      ],
       child: MaterialApp(
         routes: {
           'LoginView': (context) => const LoginView(),
           'RegisterView': (context) => const RegisterView(),
           'NoteView': (context) => const NotesViews(),
+          'HomeView': (context) => const HomeView()
         },
         theme: ThemeData(
           // brightness: Brightness.dark,
           fontFamily: 'Poppins',
         ),
         debugShowCheckedModeBanner: false,
-        home: FirebaseAuth.instance.currentUser == null
-            ? const NotesViews()
-            : const HomeView(),
+        home: (FirebaseAuth.instance.currentUser != null &&
+                FirebaseAuth.instance.currentUser!.emailVerified)
+            ? const HomeView()
+            : const LoginView(),
       ),
     );
   }
