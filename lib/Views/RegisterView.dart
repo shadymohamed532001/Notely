@@ -1,11 +1,11 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notely/Views/CustomWigets/CustomLogo.dart';
 import 'package:notely/Views/CustomWigets/CustomTextFormFiled.dart';
 import 'package:notely/Views/CustomWigets/CutomBottom.dart';
-import 'package:notely/Views/LoginView.dart';
 import 'package:notely/constans.dart';
 
 class RegisterView extends StatefulWidget {
@@ -33,7 +33,10 @@ class _RegisterViewState extends State<RegisterView> {
               gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [Colors.white, KprimeColor],
+                colors: [
+                  Colors.white,
+                  KprimeColor,
+                ],
               ),
             ),
             child: ListView(
@@ -80,11 +83,13 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                       CustomTextFormFiled(
+                        // obscureText: true,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Failed is required';
-                          } else
+                          } else {
                             return null;
+                          }
                         },
                         controller: namecontroller,
                         filled: true,
@@ -106,8 +111,9 @@ class _RegisterViewState extends State<RegisterView> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Failed is required';
-                          } else
+                          } else {
                             return null;
+                          }
                         },
                         filled: true,
                         controller: emailcontroller,
@@ -130,8 +136,8 @@ class _RegisterViewState extends State<RegisterView> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Failed is required';
-                          } else
-                            return null;
+                          }
+                          return null;
                         },
                         controller: passwordcontroller,
                         filled: true,
@@ -154,40 +160,65 @@ class _RegisterViewState extends State<RegisterView> {
                         Number: 70,
                       ),
                       CustomBottom(
-                        width: double.infinity,
-                        backgroundColor:
-                            const Color.fromARGB(255, 202, 196, 196)
-                                .withOpacity(0.66),
-                        title: 'Register in',
-                        onPressed: () async {
+                        onTap: () async {
                           if (formKey.currentState!.validate()) {
                             try {
-                              RegisterUser();
-
+                              await FirebaseAuth.instance
+                                  .createUserWithEmailAndPassword(
+                                email: emailcontroller.text,
+                                password: passwordcontroller.text,
+                              );
                               FirebaseAuth.instance.currentUser!
                                   .sendEmailVerification();
-                              if (FirebaseAuth
-                                  .instance.currentUser!.emailVerified) {
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context, 'LoginView', (route) => false);
-                              }
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, 'LoginView', (route) => false);
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'weak-password') {
-                                ShowSnackBar(context,
-                                    'The password provided is too weak');
+                                AwesomeDialog(
+                                  customHeader: Image.asset(
+                                    'assets/images/Design inspiration-pana.png',
+                                    width: 100,
+                                    height: 100,
+                                  ),
+                                  btnOkColor: KprimeColor,
+                                  btnCancelColor: KprimeColor,
+                                  context: context,
+                                  animType: AnimType.rightSlide,
+                                  title: 'weak-password',
+                                  desc:
+                                      'please check your password .............',
+                                ).show();
                               } else if (e.code == 'email-already-in-use') {
-                                ShowSnackBar(context,
-                                    'The account already exists for that email');
+                                // ignore: use_build_context_synchronously
+                                AwesomeDialog(
+                                  customHeader: Image.asset(
+                                    'assets/images/Design inspiration-pana.png',
+                                    width: 100,
+                                    height: 100,
+                                  ),
+                                  btnOkColor: KprimeColor,
+                                  btnCancelColor: KprimeColor,
+                                  context: context,
+                                  animType: AnimType.rightSlide,
+                                  title: 'email already in use',
+                                  desc: 'please check your email .............',
+                                ).show();
                               }
                             } catch (e) {
-                              print(e);
+                              // print(e);
                             }
                           } else {
                             autovalidateMode = AutovalidateMode.always;
                             setState(() {});
                           }
                         },
-                        icon: Icons.arrow_forward,
+                        text: 'Register',
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.w600),
+                        icon: const Icon(
+                          Icons.arrow_forward,
+                        ),
+                        number: 1,
                       ),
                       const CustomSpace(
                         Number: 100,
@@ -225,11 +256,11 @@ class _RegisterViewState extends State<RegisterView> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            onPressed: () async {
-                              Navigator.pushAndRemoveUntil(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return const LoginView();
-                              }), (route) => false);
+                            onPressed: () {
+                              // Navigator.pushAndRemoveUntil(context,
+                              //     MaterialPageRoute(builder: (context) {
+                              //   return const LoginView();
+                              // }), (route) => false);
                             },
                             child: const Text(
                               'Login',
@@ -246,29 +277,22 @@ class _RegisterViewState extends State<RegisterView> {
       ),
     );
   }
-
-  void RegisterUser() {
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: emailcontroller.text,
-      password: passwordcontroller.text,
-    );
-  }
 }
 
-void ShowSnackBar(BuildContext context, String message) {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Container(
-        height: 80,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          color: Colors.redAccent,
-        ),
-        child: Text(message),
-      ),
-    ),
-  );
-}
+// void (BuildContext context, String message) {
+//   ScaffoldMessenger.of(context).showSnackBar(
+//     SnackBar(
+//       content: Container(
+//         height: 80,
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(14),
+//           color: Colors.redAccent,
+//         ),
+//         child: Text(message),
+//       ),
+//     ),
+//   );
+// }
 
 
 /* suffixIcon: const Icon(Icons.visibility),

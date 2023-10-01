@@ -7,7 +7,7 @@ class VerfideView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(children: []),
+      body: const Column(children: []),
     );
   }
 }

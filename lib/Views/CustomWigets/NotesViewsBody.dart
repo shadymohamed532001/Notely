@@ -81,7 +81,7 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
                     : searchedfornote.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
+                    padding: const EdgeInsets.only(bottom: 8.0),
                     child: CustomItems(
                       notes: _controller.text.isEmpty
                           ? notes[index]
@@ -133,7 +133,7 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
                   Navigator.pushNamedAndRemoveUntil(
                       context, 'HomeView', (route) => false);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.menu,
                   color: Colors.black,
                 ),

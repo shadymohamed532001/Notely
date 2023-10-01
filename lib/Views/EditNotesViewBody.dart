@@ -33,7 +33,7 @@ class _EditNotesViewState extends State<EditNotesBodyView> {
             ])),
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(14),
+            padding: const EdgeInsets.all(14),
             child: Column(
               children: [
                 CustomAppBar(
@@ -56,6 +56,7 @@ class _EditNotesViewState extends State<EditNotesBodyView> {
                   height: 20,
                 ),
                 CustomTextFormFiled(
+                  // obscureText: true,
                   onChanged: (value) {
                     tittle = value;
                   },
@@ -65,13 +66,14 @@ class _EditNotesViewState extends State<EditNotesBodyView> {
                   height: 20,
                 ),
                 CustomTextFormFiled(
+                  // obscureText: true,
                   onChanged: (value) {
                     subtitle = value;
                   },
                   hintText: widget.Notes.subtitle,
                   maxLine: 6,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 14,
                 ),
                 EditNoteColorsListView(

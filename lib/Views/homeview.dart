@@ -1,27 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notely/Views/CustomWigets/CutomBottom.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
-
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  @override
-  void initState() {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print(' =========== User is currently signed out!');
-      } else {
-        print(' =========== User is signed in!');
-      }
-    });
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,14 +54,21 @@ class _HomeViewState extends State<HomeView> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   CustomBottom(
-                    backgroundColor: Colors.white.withOpacity(0.6),
-                    width: 200,
-                    onPressed: () {
+                    icon: const Icon(
+                      Icons.arrow_forward,
+                      size: 28,
+                    ),
+                    number: 1.8,
+                    text: 'Lets start',
+                    style: const TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w500,
+                      wordSpacing: 4.3,
+                    ),
+                    onTap: () {
                       Navigator.pushNamedAndRemoveUntil(
                           context, 'LoginView', (route) => false);
                     },
-                    title: 'Let\'s Start',
-                    icon: Icons.arrow_forward,
                   ),
                 ],
               ),
