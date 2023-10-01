@@ -21,6 +21,7 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController passwordcontroller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
   AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
+  bool isPasswordShow = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +83,7 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                     CustomTextFormFiled(
+                      obscureText: false,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Failed is required';
@@ -105,6 +107,17 @@ class _LoginViewState extends State<LoginView> {
                       Number: 400,
                     ),
                     CustomTextFormFiled(
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isPasswordShow = !isPasswordShow;
+                          });
+                        },
+                        icon: isPasswordShow
+                            ? Icon((Icons.visibility_off))
+                            : Icon(Icons.visibility),
+                      ),
+                      obscureText: isPasswordShow,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Failed is required';

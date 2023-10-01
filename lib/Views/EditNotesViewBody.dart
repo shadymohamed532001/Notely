@@ -56,6 +56,8 @@ class _EditNotesViewState extends State<EditNotesBodyView> {
                   height: 20,
                 ),
                 CustomTextFormFiled(
+                  obscureText: false,
+
                   // obscureText: true,
                   onChanged: (value) {
                     tittle = value;
@@ -66,6 +68,8 @@ class _EditNotesViewState extends State<EditNotesBodyView> {
                   height: 20,
                 ),
                 CustomTextFormFiled(
+                  obscureText: false,
+
                   // obscureText: true,
                   onChanged: (value) {
                     subtitle = value;

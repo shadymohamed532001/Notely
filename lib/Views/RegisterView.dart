@@ -21,6 +21,7 @@ class _RegisterViewState extends State<RegisterView> {
   TextEditingController namecontroller = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
+  bool isPasswordShow = true;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +84,8 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                       CustomTextFormFiled(
+                        obscureText: false,
+
                         // obscureText: true,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -108,6 +111,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                       CustomTextFormFiled(
+                        obscureText: false,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Failed is required';
@@ -133,6 +137,17 @@ class _RegisterViewState extends State<RegisterView> {
                         Number: 400,
                       ),
                       CustomTextFormFiled(
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isPasswordShow = !isPasswordShow;
+                            });
+                          },
+                          icon: isPasswordShow
+                              ? Icon((Icons.visibility_off))
+                              : Icon(Icons.visibility),
+                        ),
+                        obscureText: isPasswordShow,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Failed is required';

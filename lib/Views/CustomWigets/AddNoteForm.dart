@@ -61,6 +61,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                 height: 10,
               ),
               CustomTextFormFiled(
+                obscureText: false,
                 // obscureText: true,
                 onSaved: (value) {
                   title = value;
@@ -78,6 +79,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
                 height: 10,
               ),
               CustomTextFormFiled(
+                obscureText: false,
                 // obscureText: true,
                 hintText: 'subtitle',
                 onSaved: (value) {

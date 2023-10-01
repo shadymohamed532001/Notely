@@ -13,6 +13,9 @@ class CustomTextFormFiled extends StatelessWidget {
     this.filled,
     this.fillColor,
     this.controller,
+    required this.obscureText,
+    this.suffixIcon,
+    this.prefixIcon,
   });
 
   final Function(String)? onChanged;
@@ -21,9 +24,12 @@ class CustomTextFormFiled extends StatelessWidget {
   final String? Function(String?)? validator;
   final String hintText;
   final int? maxLine;
+  final bool obscureText;
   final bool? filled;
   final TextEditingController? controller;
   final Color? fillColor;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -31,12 +37,16 @@ class CustomTextFormFiled extends StatelessWidget {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       maxLines: maxLine,
+      obscureText: obscureText,
       controller: controller,
       onChanged: onChanged,
       onFieldSubmitted: onFieldSubmitted,
       onSaved: onSaved,
       validator: validator,
       decoration: InputDecoration(
+          suffixIcon: suffixIcon,
+          suffixIconColor: const Color.fromARGB(255, 101, 98, 98),
+          prefixIcon: prefixIcon,
           filled: filled,
           fillColor: fillColor,
           border: buildOutlineInputBorder(),
