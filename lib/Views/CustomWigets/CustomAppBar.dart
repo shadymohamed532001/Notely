@@ -12,12 +12,23 @@ class CustomAppBar extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: onTap,
-          child: const CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage('assets/images/IMG_2039.JPG'),
-          ),
-        ),
+            onTap: onTap,
+            child: Container(
+                width: 45,
+                height: 45,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.07),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios_new_sharp,
+                    size: 22,
+                  ),
+                ))),
         const SizedBox(
           width: 11,
         ),

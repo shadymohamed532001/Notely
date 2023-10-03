@@ -1,12 +1,13 @@
 // ignore_for_file: use_build_context_synchronously, duplicate_ignore
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notely/Views/CustomWigets/CustomLogo.dart';
 import 'package:notely/Views/CustomWigets/CustomTextFormFiled.dart';
 import 'package:notely/Views/CustomWigets/CutomBottom.dart';
-import 'package:notely/constans.dart';
+import 'package:notely/Helper/constans.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -22,6 +23,7 @@ class _RegisterViewState extends State<RegisterView> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
   bool isPasswordShow = true;
+  String _errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class _RegisterViewState extends State<RegisterView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const CustomSpace(
-                        Number: 15,
+                        Number: 20,
                       ),
                       const CustomLogo(),
                       const CustomSpace(
@@ -85,15 +87,6 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                       CustomTextFormFiled(
                         obscureText: false,
-
-                        // obscureText: true,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Failed is required';
-                          } else {
-                            return null;
-                          }
-                        },
                         controller: namecontroller,
                         filled: true,
                         fillColor: const Color.fromRGBO(190, 183, 183, 1),
@@ -112,19 +105,23 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                       CustomTextFormFiled(
                         obscureText: false,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Failed is required';
-                          } else {
-                            return null;
-                          }
+                        onChanged: (value) {
+                          validateEmail(value);
                         },
                         filled: true,
                         controller: emailcontroller,
                         fillColor: const Color.fromRGBO(190, 183, 183, 1),
                         hintText: 'Add Your Email',
                       ),
-                      const CustomSpace(Number: 200),
+                      SizedBox(
+                        height: 16,
+                        width: double.infinity,
+                        child: Text(_errorMessage,
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 199, 42, 30),
+                            )),
+                      ),
+                      // const CustomSpace(Number: 900),
                       const Text(
                         'Password ',
                         style: TextStyle(
@@ -144,16 +141,10 @@ class _RegisterViewState extends State<RegisterView> {
                             });
                           },
                           icon: isPasswordShow
-                              ? Icon((Icons.visibility_off))
-                              : Icon(Icons.visibility),
+                              ? const Icon((Icons.visibility_off))
+                              : const Icon(Icons.visibility),
                         ),
                         obscureText: isPasswordShow,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Failed is required';
-                          }
-                          return null;
-                        },
                         controller: passwordcontroller,
                         filled: true,
                         fillColor: const Color.fromRGBO(190, 183, 183, 1),
@@ -162,66 +153,42 @@ class _RegisterViewState extends State<RegisterView> {
                       const CustomSpace(
                         Number: 200,
                       ),
-                      Container(
-                        alignment: Alignment.bottomRight,
-                        child: const Text(
-                          'Forget password ? ',
-                          style: TextStyle(
-                            fontSize: 17,
-                          ),
+                      const Text(
+                        'confirm password',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
                         ),
                       ),
                       const CustomSpace(
-                        Number: 70,
+                        Number: 400,
+                      ),
+                      CustomTextFormFiled(
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isPasswordShow = !isPasswordShow;
+                            });
+                          },
+                          icon: isPasswordShow
+                              ? const Icon((Icons.visibility_off))
+                              : const Icon(Icons.visibility),
+                        ),
+                        obscureText: isPasswordShow,
+                        controller: passwordcontroller,
+                        filled: true,
+                        fillColor: const Color.fromRGBO(190, 183, 183, 1),
+                        hintText: 'Add Your confirm password',
+                      ),
+
+                      const CustomSpace(
+                        Number: 30,
                       ),
                       CustomBottom(
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
-                            try {
-                              await FirebaseAuth.instance
-                                  .createUserWithEmailAndPassword(
-                                email: emailcontroller.text,
-                                password: passwordcontroller.text,
-                              );
-                              FirebaseAuth.instance.currentUser!
-                                  .sendEmailVerification();
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, 'LoginView', (route) => false);
-                            } on FirebaseAuthException catch (e) {
-                              if (e.code == 'weak-password') {
-                                AwesomeDialog(
-                                  customHeader: Image.asset(
-                                    'assets/images/Design inspiration-pana.png',
-                                    width: 100,
-                                    height: 100,
-                                  ),
-                                  btnOkColor: KprimeColor,
-                                  btnCancelColor: KprimeColor,
-                                  context: context,
-                                  animType: AnimType.rightSlide,
-                                  title: 'weak-password',
-                                  desc:
-                                      'please check your password .............',
-                                ).show();
-                              } else if (e.code == 'email-already-in-use') {
-                                // ignore: use_build_context_synchronously
-                                AwesomeDialog(
-                                  customHeader: Image.asset(
-                                    'assets/images/Design inspiration-pana.png',
-                                    width: 100,
-                                    height: 100,
-                                  ),
-                                  btnOkColor: KprimeColor,
-                                  btnCancelColor: KprimeColor,
-                                  context: context,
-                                  animType: AnimType.rightSlide,
-                                  title: 'email already in use',
-                                  desc: 'please check your email .............',
-                                ).show();
-                              }
-                            } catch (e) {
-                              // print(e);
-                            }
+                            await RegisterUser(context);
                           } else {
                             autovalidateMode = AutovalidateMode.always;
                             setState(() {});
@@ -272,10 +239,8 @@ class _RegisterViewState extends State<RegisterView> {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             onPressed: () {
-                              // Navigator.pushAndRemoveUntil(context,
-                              //     MaterialPageRoute(builder: (context) {
-                              //   return const LoginView();
-                              // }), (route) => false);
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, kLoginView, (route) => false);
                             },
                             child: const Text(
                               'Login',
@@ -291,6 +256,64 @@ class _RegisterViewState extends State<RegisterView> {
             )),
       ),
     );
+  }
+
+  Future<void> RegisterUser(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailcontroller.text,
+        password: passwordcontroller.text,
+      );
+      FirebaseAuth.instance.currentUser!.sendEmailVerification();
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        kLoginView,
+        (route) => false,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        AwesomeDialog(
+          customHeader: Image.asset(
+            'assets/images/Design inspiration-pana.png',
+            width: 100,
+            height: 100,
+          ),
+          btnOkColor: KprimeColor,
+          btnCancelColor: KprimeColor,
+          context: context,
+          animType: AnimType.rightSlide,
+          title: 'weak-password',
+          desc: 'please check your password .............',
+        ).show();
+      } else if (e.code == 'email-already-in-use') {
+        // ignore: use_build_context_synchronously
+        AwesomeDialog(
+          customHeader: Image.asset(
+            'assets/images/Design inspiration-pana.png',
+            width: 100,
+            height: 100,
+          ),
+          btnOkColor: KprimeColor,
+          btnCancelColor: KprimeColor,
+          context: context,
+          animType: AnimType.rightSlide,
+          title: 'email already in use',
+          desc: 'please check your email .............',
+        ).show();
+      }
+    }
+  }
+
+  void validateEmail(String val) {
+    if (!EmailValidator.validate(val, true) && val.isNotEmpty) {
+      setState(() {
+        _errorMessage = "Invalid Email Address";
+      });
+    } else {
+      setState(() {
+        _errorMessage = "";
+      });
+    }
   }
 }
 

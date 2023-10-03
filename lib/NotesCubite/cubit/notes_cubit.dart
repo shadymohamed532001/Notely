@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meta/meta.dart';
 import 'package:notely/Models/NoteModel.dart';
-import 'package:notely/constans.dart';
+import 'package:notely/Helper/constans.dart';
 
 part 'notes_state.dart';
 

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:notely/Models/NoteModel.dart';
 import 'package:notely/add_note_cubite/cubit/add_note_state.dart';
-import 'package:notely/constans.dart';
+import 'package:notely/Helper/constans.dart';
 
 class AddNoteCubite extends Cubit<AddNoteState> {
   AddNoteCubite() : super(AddNoteInitial());

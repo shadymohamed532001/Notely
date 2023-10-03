@@ -1,13 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notely/Views/CustomWigets/CustomLogo.dart';
 import 'package:notely/Views/CustomWigets/CustomTextFormFiled.dart';
 import 'package:notely/Views/CustomWigets/CutomBottom.dart';
-import 'package:notely/Views/RegisterView.dart';
-import 'package:notely/constans.dart';
+import 'package:notely/Helper/constans.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -19,9 +18,12 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
+
   final GlobalKey<FormState> _formKey = GlobalKey();
   AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
   bool isPasswordShow = true;
+  String _errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +49,7 @@ class _LoginViewState extends State<LoginView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const CustomSpace(
-                      Number: 15,
+                      Number: 20,
                     ),
                     const CustomLogo(),
                     const CustomSpace(
@@ -83,18 +85,27 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                     CustomTextFormFiled(
-                      obscureText: false,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Failed is required';
-                        }
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) {
+                        validateEmail(value);
                       },
+                      obscureText: false,
                       filled: true,
                       controller: emailcontroller,
                       fillColor: const Color.fromRGBO(190, 183, 183, 1),
                       hintText: 'Add Your Email',
                     ),
-                    const CustomSpace(Number: 200),
+                    SizedBox(
+                      height: 16,
+                      width: double.infinity,
+                      child: Text(
+                        _errorMessage,
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 199, 42, 30),
+                        ),
+                      ),
+                    ),
+                    // const CustomSpace(Number: 900),
                     const Text(
                       'Password ',
                       style: TextStyle(
@@ -114,15 +125,11 @@ class _LoginViewState extends State<LoginView> {
                           });
                         },
                         icon: isPasswordShow
-                            ? Icon((Icons.visibility_off))
-                            : Icon(Icons.visibility),
+                            ? const Icon((Icons.visibility_off))
+                            : const Icon(Icons.visibility),
                       ),
                       obscureText: isPasswordShow,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Failed is required';
-                        }
-                      },
+                      keyboardType: TextInputType.visiblePassword,
                       controller: passwordcontroller,
                       filled: true,
                       fillColor: const Color.fromRGBO(190, 183, 183, 1),
@@ -146,112 +153,12 @@ class _LoginViewState extends State<LoginView> {
                     CustomBottom(
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
-                          try {
-                            final Credential = await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                              email: emailcontroller.text,
-                              password: passwordcontroller.text,
-                            );
-                            if (Credential.user!.emailVerified) {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, 'NoteView', (route) => false);
-                            } else {
-                              AwesomeDialog(
-                                customHeader: Image.asset(
-                                  'assets/images/Design inspiration-pana.png',
-                                  width: 100,
-                                  height: 100,
-                                ),
-                                btnOkColor: KprimeColor,
-                                btnCancelColor: KprimeColor,
-                                context: context,
-                                animType: AnimType.rightSlide,
-                                title: 'Email Not Verified',
-                                desc:
-                                    'please check your Email to Verfide .............',
-                              ).show();
-                              FirebaseAuth.instance.currentUser!
-                                  .sendEmailVerification();
-                            }
-                            // Successful login
-                            print('Login successful');
-                          } on FirebaseAuthException catch (e) {
-                            print(e.code);
-                            print(
-                                '================================================================');
-                            if (e.code == "INVALID_LOGIN_CREDENTIALS") {
-                              AwesomeDialog(
-                                customHeader: Image.asset(
-                                  'assets/images/Design inspiration-pana.png',
-                                  width: 100,
-                                  height: 100,
-                                ),
-                                btnOkColor: KprimeColor,
-                                btnCancelColor: KprimeColor,
-                                context: context,
-                                animType: AnimType.rightSlide,
-                                title: 'Wrong Email Or Password',
-                                desc:
-                                    'please check your Email or Password .............',
-                              ).show();
-                            }
-                          } catch (e) {
-                            // Other exceptions
-                            print(e);
-                          }
+                          await LoginUser(context);
+                        } else {
+                          autovalidateMode = AutovalidateMode.always;
+                          setState(() {});
                         }
                       },
-
-                      // onTap: () async {
-                      //   if (formKey.currentState!.validate()) {
-                      //     try {
-                      //       await FirebaseAuth.instance
-                      //           .signInWithEmailAndPassword(
-                      //         email: emailcontroller.text,
-                      //         password: passwordcontroller.text,
-                      //       );
-
-                      //       Navigator.pushNamedAndRemoveUntil(
-                      //           context, 'NoteView', (route) => false);
-                      //     } on FirebaseAuthException catch (e) {
-                      //       if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
-                      //         AwesomeDialog(
-                      //           customHeader: Image.asset(
-                      //             'assets/images/Design inspiration-pana.png',
-                      //             width: 100,
-                      //             height: 100,
-                      //           ),
-                      //           btnOkColor: KprimeColor,
-                      //           btnCancelColor: KprimeColor,
-                      //           context: context,
-                      //           animType: AnimType.rightSlide,
-                      //           title: 'weak-password',
-                      //           desc:
-                      //               'please check your password .............',
-                      //         ).show();
-                      //       } else if (e.code == 'wrong-password') {
-                      //         AwesomeDialog(
-                      //           customHeader: Image.asset(
-                      //             'assets/images/Design inspiration-pana.png',
-                      //             width: 100,
-                      //             height: 100,
-                      //           ),
-                      //           btnOkColor: KprimeColor,
-                      //           btnCancelColor: KprimeColor,
-                      //           context: context,
-                      //           animType: AnimType.rightSlide,
-                      //           title: 'email already in use',
-                      //           desc: 'please check your email .............',
-                      //         ).show();
-                      //       }
-                      //     } catch (e) {
-                      //       // print(e);
-                      //     }
-                      //   } else {
-                      //     autovalidateMode = AutovalidateMode.always;
-                      //     setState(() {});
-                      //   }
-                      // },
                       text: 'Login',
                       style: const TextStyle(
                         fontSize: 22,
@@ -313,10 +220,8 @@ class _LoginViewState extends State<LoginView> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           onPressed: () {
-                            Navigator.pushAndRemoveUntil(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const RegisterView();
-                            }), (route) => false);
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, kRegisterView, (route) => false);
                           },
                           child: const Text(
                             'Register',
@@ -333,5 +238,42 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
     );
+  }
+
+  Future<void> LoginUser(BuildContext context) async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailcontroller.text,
+        password: passwordcontroller.text,
+      );
+      if (credential.user!.emailVerified) {
+        Navigator.pushNamedAndRemoveUntil(context, kNoteView, (route) => false);
+      } else {
+        standerDialog(
+          context: context,
+          title: 'Email Not Verified',
+          desc: 'please check your Email to Verfide ............',
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "INVALID_LOGIN_CREDENTIALS") {
+        standerDialog(
+            context: context,
+            title: 'Wrong Email Or Password',
+            desc: 'please check your Email or Password .............');
+      }
+    }
+  }
+
+  void validateEmail(String val) {
+    if (!EmailValidator.validate(val, true) && val.isNotEmpty) {
+      setState(() {
+        _errorMessage = "Invalid Email Address";
+      });
+    } else {
+      setState(() {
+        _errorMessage = "";
+      });
+    }
   }
 }

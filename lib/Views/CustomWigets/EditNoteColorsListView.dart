@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notely/Models/NoteModel.dart';
 import 'package:notely/Views/CustomWigets/ColorsListViews.dart';
-import 'package:notely/constans.dart';
+import 'package:notely/Helper/constans.dart';
 
 class EditNoteColorsListView extends StatefulWidget {
   const EditNoteColorsListView({super.key, required this.note});

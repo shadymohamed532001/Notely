@@ -1,8 +1,14 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 
 // ignore: constant_identifier_names
 const Color KprimeColor = Color.fromARGB(255, 50, 23, 20);
 const kNoteBox = 'NotesBox';
+
+const kLoginView = 'LoginView';
+const kRegisterView = 'RegisterView';
+const kNoteView = 'NoteView';
+const kHomeView = 'HomeView';
 
 List<Color> colors = const [
   Color(0xff415a77),
@@ -47,4 +53,23 @@ class CustomSpace extends StatelessWidget {
       height: MediaQuery.of(context).size.height / Number,
     );
   }
+}
+
+void standerDialog(
+    {required BuildContext context,
+    required String? title,
+    required String? desc}) {
+  AwesomeDialog(
+    customHeader: Image.asset(
+      'assets/images/Design inspiration-pana.png',
+      width: 100,
+      height: 100,
+    ),
+    btnOkColor: KprimeColor,
+    btnCancelColor: KprimeColor,
+    context: context,
+    animType: AnimType.rightSlide,
+    title: title,
+    desc: desc,
+  ).show();
 }

@@ -4,10 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notely/Models/NoteModel.dart';
 import 'package:notely/NotesCubite/cubit/notes_cubit.dart';
 import 'package:notely/Views/CustomWigets/AddNoteBottomSheet.dart';
-import 'package:notely/Views/CustomWigets/CustomAppBar.dart';
 import 'package:notely/Views/CustomWigets/CustomItems.dart';
+import 'package:notely/Views/CustomWigets/CustomPopUpMenu.dart';
 import 'package:notely/Views/CustomWigets/CustomSearchBar.dart';
 import 'package:notely/Views/CustomWigets/CutomHellowBar.dart';
+import 'package:notely/Helper/constans.dart';
 
 class NotesViewsBody extends StatefulWidget {
   const NotesViewsBody({super.key});
@@ -100,6 +101,11 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
   @override
   void initState() {
     BlocProvider.of<NotesCubit>(context).FitchAllData();
+    CheckStateOfUserToevloper();
+    super.initState();
+  }
+
+  void CheckStateOfUserToevloper() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');
@@ -107,12 +113,50 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
         print('User is signed in!');
       }
     });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        // Set this height
+        child: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          centerTitle: false,
+          leading: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 6),
+            child: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/IMG_2039.JPG'),
+            ),
+          ),
+          title: const Text(
+            'Hi,Shady',
+            style: TextStyle(
+              fontFamily: 'Lato',
+              color: Colors.black,
+              fontSize: 23,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          actions: [
+            CustomPopUpMenu(
+              onTapItem1: () {
+                standerDialog(
+                    context: context,
+                    title: 'Contact Us In Email',
+                    desc: 'Email : shadysteha571@gmail.com');
+              },
+              onTapItem2: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, kHomeView, (route) => false);
+              },
+            )
+          ],
+        ),
+      ),
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -125,19 +169,8 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
             ])),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(14),
+            padding: const EdgeInsets.symmetric(horizontal: 14),
             child: Column(children: [
-              CustomAppBar(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, 'HomeView', (route) => false);
-                },
-                icon: const Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                ),
-              ),
               const SizedBox(
                 height: 20,
               ),

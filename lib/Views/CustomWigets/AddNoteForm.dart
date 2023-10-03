@@ -5,7 +5,7 @@ import 'package:notely/Models/NoteModel.dart';
 import 'package:notely/Views/CustomWigets/ColorsListViews.dart';
 import 'package:notely/Views/CustomWigets/CustomTextFormFiled.dart';
 import 'package:notely/add_note_cubite/cubit/add_note_cubite.dart';
-import 'package:notely/constans.dart';
+import 'package:notely/Helper/constans.dart';
 
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({

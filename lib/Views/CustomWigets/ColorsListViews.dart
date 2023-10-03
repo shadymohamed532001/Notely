@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notely/add_note_cubite/cubit/add_note_cubite.dart';
-import 'package:notely/constans.dart';
+import 'package:notely/Helper/constans.dart';
 
 class ColorsListView extends StatefulWidget {
   const ColorsListView({super.key});
