@@ -45,18 +45,20 @@ class CustomTextFormFiled extends StatelessWidget {
       onChanged: onChanged,
       onFieldSubmitted: onFieldSubmitted,
       onSaved: onSaved,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Failed is required';
-        }
-        return null;
-      },
+      validator: validator,
+      // validator: (value) {
+      //   if (value!.isEmpty) {
+      //     return 'Failed is required';
+      //   }
+      //   return null;
+      // },
       decoration: InputDecoration(
           suffixIcon: suffixIcon,
           suffixIconColor: const Color.fromARGB(255, 101, 98, 98),
           prefixIcon: prefixIcon,
           filled: filled,
           fillColor: fillColor,
+          errorBorder: buildOutlineInputBorder(Colors.red),
           border: buildOutlineInputBorder(),
           focusedBorder:
               buildOutlineInputBorder(const Color.fromARGB(255, 66, 21, 21)),

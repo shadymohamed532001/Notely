@@ -3,6 +3,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:notely/Views/CustomWigets/CustomLogo.dart';
 import 'package:notely/Views/CustomWigets/CustomTextFormFiled.dart';
 import 'package:notely/Views/CustomWigets/CutomBottom.dart';
@@ -85,6 +86,13 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                     CustomTextFormFiled(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'please enter your email ';
+                        } else {
+                          return null;
+                        }
+                      },
                       keyboardType: TextInputType.emailAddress,
                       onChanged: (value) {
                         validateEmail(value);
@@ -118,6 +126,13 @@ class _LoginViewState extends State<LoginView> {
                       Number: 400,
                     ),
                     CustomTextFormFiled(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'please enter your password';
+                        } else {
+                          return null;
+                        }
+                      },
                       suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
@@ -138,12 +153,33 @@ class _LoginViewState extends State<LoginView> {
                     const CustomSpace(
                       Number: 200,
                     ),
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      child: const Text(
-                        'Forget password ? ',
-                        style: TextStyle(
-                          fontSize: 17,
+                    InkWell(
+                      onTap: () async {
+                        if (emailcontroller.text == "") {
+                          standerDialog(
+                            context: context,
+                            title: 'Your email is empty',
+                            desc:
+                                'pelase enter your email to reset your psasword',
+                          );
+                        } else {
+                          standerDialog(
+                            context: context,
+                            title: 'Reset Password',
+                            desc:
+                                'please check your email to reset your password',
+                          );
+                          await FirebaseAuth.instance.sendPasswordResetEmail(
+                              email: emailcontroller.text);
+                        }
+                      },
+                      child: Container(
+                        alignment: Alignment.bottomRight,
+                        child: const Text(
+                          'Forget password ? ',
+                          style: TextStyle(
+                            fontSize: 17,
+                          ),
                         ),
                       ),
                     ),
@@ -188,7 +224,9 @@ class _LoginViewState extends State<LoginView> {
                       Number: 80,
                     ),
                     CustomBottom(
-                      onTap: () async {},
+                      onTap: () async {
+                        // await signInWithGoogle();
+                      },
                       text: 'Login With Google',
                       style: const TextStyle(
                         fontSize: 22,
@@ -238,6 +276,27 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
     );
+  }
+
+  Future signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
+      return;
+    }
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    Navigator.pushNamedAndRemoveUntil(context, kNoteView, (route) => false);
   }
 
   Future<void> LoginUser(BuildContext context) async {

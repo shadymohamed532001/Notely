@@ -19,11 +19,15 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController confirmpasswordcontroller = TextEditingController();
+
   TextEditingController namecontroller = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
   bool isPasswordShow = true;
-  String _errorMessage = '';
+  bool isconfirmPasswordShow = true;
+  String _errorEmailMessage = '';
+  // String _errorPasswordMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -116,9 +120,9 @@ class _RegisterViewState extends State<RegisterView> {
                       SizedBox(
                         height: 16,
                         width: double.infinity,
-                        child: Text(_errorMessage,
-                            style: TextStyle(
-                              color: const Color.fromARGB(255, 199, 42, 30),
+                        child: Text(_errorEmailMessage,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 199, 42, 30),
                             )),
                       ),
                       // const CustomSpace(Number: 900),
@@ -134,6 +138,17 @@ class _RegisterViewState extends State<RegisterView> {
                         Number: 400,
                       ),
                       CustomTextFormFiled(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your password';
+                          } else if (value.length > 8) {
+                            return 'Password must be at least 8 characters';
+                          }
+                          return null;
+                        },
+                        // onChanged: (value) {
+                        //   validatePassword(value);
+                        // },
                         suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
@@ -165,23 +180,40 @@ class _RegisterViewState extends State<RegisterView> {
                         Number: 400,
                       ),
                       CustomTextFormFiled(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your password';
+                          } else if (value.length > 8) {
+                            return 'Password must be at least 8 characters';
+                          } else if (value != passwordcontroller.text) {
+                            return 'passwords not match';
+                          }
+                          return null;
+                        },
                         suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
-                              isPasswordShow = !isPasswordShow;
+                              isconfirmPasswordShow = !isconfirmPasswordShow;
                             });
                           },
-                          icon: isPasswordShow
+                          icon: isconfirmPasswordShow
                               ? const Icon((Icons.visibility_off))
                               : const Icon(Icons.visibility),
                         ),
-                        obscureText: isPasswordShow,
-                        controller: passwordcontroller,
+                        obscureText: isconfirmPasswordShow,
+                        controller: confirmpasswordcontroller,
                         filled: true,
                         fillColor: const Color.fromRGBO(190, 183, 183, 1),
                         hintText: 'Add Your confirm password',
                       ),
-
+                      // SizedBox(
+                      //   height: 16,
+                      //   width: double.infinity,
+                      //   child: Text(_errorPasswordMessage,
+                      //       style: TextStyle(
+                      //         color: const Color.fromARGB(255, 199, 42, 30),
+                      //       )),
+                      // ),
                       const CustomSpace(
                         Number: 30,
                       ),
@@ -307,14 +339,26 @@ class _RegisterViewState extends State<RegisterView> {
   void validateEmail(String val) {
     if (!EmailValidator.validate(val, true) && val.isNotEmpty) {
       setState(() {
-        _errorMessage = "Invalid Email Address";
+        _errorEmailMessage = "Invalid Email Address";
       });
     } else {
       setState(() {
-        _errorMessage = "";
+        _errorEmailMessage = "";
       });
     }
   }
+
+  // void validatePassword(String value) {
+  //   if (value == passwordcontroller.text) {
+  //     setState(() {
+  //       _errorPasswordMessage = "";
+  //     });
+  //   } else {
+  //     setState(() {
+  //       _errorPasswordMessage = "the Confirm Password dos not match";
+  //     });
+  //   }
+  // }
 }
 
 // void (BuildContext context, String message) {
