@@ -12,7 +12,8 @@ import 'package:notely/Views/CustomWigets/CutomHellowBar.dart';
 import 'package:notely/Helper/constans.dart';
 
 class NotesViewsBody extends StatefulWidget {
-  const NotesViewsBody({super.key});
+  const NotesViewsBody({super.key, this.username});
+  final String? username;
 
   @override
   State<NotesViewsBody> createState() => _NotesViewsBodyState();
@@ -132,9 +133,9 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
               backgroundImage: AssetImage('assets/images/IMG_2039.JPG'),
             ),
           ),
-          title: const Text(
-            'Hi,Shady',
-            style: TextStyle(
+          title: Text(
+            'Hi,${widget.username}',
+            style: const TextStyle(
               fontFamily: 'Lato',
               color: Colors.black,
               fontSize: 23,
