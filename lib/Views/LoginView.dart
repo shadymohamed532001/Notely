@@ -3,7 +3,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:notely/Views/CustomWigets/CustomLogo.dart';
 import 'package:notely/Views/CustomWigets/CustomTextFormFiled.dart';
 import 'package:notely/Views/CustomWigets/CutomBottom.dart';
@@ -27,6 +26,13 @@ class _LoginViewState extends State<LoginView> {
   bool isPasswordShow = true;
   String _errorMessage = '';
   bool isLoading = false;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    emailcontroller.dispose();
+    passwordcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +52,7 @@ class _LoginViewState extends State<LoginView> {
                     ],
                   ),
                 ),
-                child: Center(
+                child: const Center(
                   child: CircularProgressIndicator(
                     color: KprimeColor,
                   ),

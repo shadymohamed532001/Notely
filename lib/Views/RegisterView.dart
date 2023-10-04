@@ -33,6 +33,15 @@ class _RegisterViewState extends State<RegisterView> {
   // String _errorPasswordMessage = '';
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    namecontroller.dispose();
+    emailcontroller.dispose();
+    passwordcontroller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(

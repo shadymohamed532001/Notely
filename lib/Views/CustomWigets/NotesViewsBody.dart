@@ -133,15 +133,25 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
               backgroundImage: AssetImage('assets/images/IMG_2039.JPG'),
             ),
           ),
-          title: Text(
-            'Hi,${widget.username}',
-            style: const TextStyle(
-              fontFamily: 'Lato',
-              color: Colors.black,
-              fontSize: 23,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          title: widget.username != null
+              ? Text(
+                  'Hi,${widget.username}',
+                  style: const TextStyle(
+                    fontFamily: 'Lato',
+                    color: Colors.black,
+                    fontSize: 23,
+                    fontWeight: FontWeight.w700,
+                  ),
+                )
+              : const Text(
+                  'Hi,User',
+                  style: TextStyle(
+                    fontFamily: 'Lato',
+                    color: Colors.black,
+                    fontSize: 23,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
           actions: [
             CustomPopUpMenu(
               onTapItem1: () {
