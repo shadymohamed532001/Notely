@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:notely/Views/CustomWigets/CutomBottom.dart';
+import 'package:notely/Features/auth/Views/widgets/CutomBottom.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class HomeView
+    extends StatelessWidget {
+  const HomeView(
+      {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget
+      build(BuildContext context) {
     return Scaffold(
       body: Container(
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.white,
-                Color.fromARGB(255, 50, 23, 20),
-              ]),
+          gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomRight, colors: [
+            Colors.white,
+            Color.fromARGB(255, 50, 23, 20),
+          ]),
         ),
         child: Column(
           children: [
@@ -66,8 +66,7 @@ class HomeView extends StatelessWidget {
                       wordSpacing: 4.3,
                     ),
                     onTap: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, 'LoginView', (route) => false);
+                      Navigator.pushNamedAndRemoveUntil(context, 'LoginView', (route) => false);
                     },
                   ),
                 ],

@@ -7,7 +7,7 @@ import 'package:notely/Core/widgets/CustomSpacer.dart';
 import 'package:notely/Features/auth/Views/widgets/CustomLoading.dart';
 import 'package:notely/Features/auth/Views/widgets/CustomLogo.dart';
 import 'package:notely/Core/widgets/CustomTextFormFiled.dart';
-import 'package:notely/Views/CustomWigets/CutomBottom.dart';
+import 'package:notely/Features/auth/Views/widgets/CutomBottom.dart';
 import 'package:notely/Core/constans.dart';
 import 'package:notely/Features/Home/Views/notesviews.dart';
 
