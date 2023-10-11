@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notely/Models/NoteModel.dart';
 import 'package:notely/NotesCubite/cubit/notes_cubit.dart';
-import 'package:notely/Views/CustomWigets/EditNoteView.dart';
+import 'package:notely/Features/EditNote/Views/EditNoteView.dart';
 
-class CustomItems extends StatelessWidget {
-  const CustomItems({super.key, this.onTap, required this.notes});
-  final Function()? onTap;
+class CustomItems
+    extends StatelessWidget {
+  const CustomItems(
+      {super.key,
+      this.onTap,
+      required this.notes});
+  final Function()?
+      onTap;
 
-  final NoteModel notes;
+  final NoteModel
+      notes;
   @override
-  Widget build(BuildContext context) {
+  Widget
+      build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -25,13 +32,10 @@ class CustomItems extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.white,
-                Color(notes.color),
-              ]),
+          gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [
+            Colors.white,
+            Color(notes.color),
+          ]),
           // color: const Color.fromARGB(255, 175, 172, 122),
           borderRadius: BorderRadius.circular(24),
         ),

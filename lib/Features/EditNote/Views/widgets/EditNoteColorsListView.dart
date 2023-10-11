@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notely/Models/NoteModel.dart';
-import 'package:notely/Views/CustomWigets/ColorsListViews.dart';
+import 'package:notely/Features/EditNote/Views/widgets/ColorsListViews.dart';
 import 'package:notely/Core/constans.dart';
 
 class EditNoteColorsListView

@@ -5,6 +5,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notely/Core/widgets/CustomSpacer.dart';
+import 'package:notely/Features/auth/Views/widgets/CustomLoading.dart';
 import 'package:notely/Features/auth/Views/widgets/CustomLogo.dart';
 import 'package:notely/Core/widgets/CustomTextFormFiled.dart';
 import 'package:notely/Features/auth/Views/widgets/CutomBottom.dart';
@@ -75,23 +76,7 @@ class _RegisterViewState
         key: formKey,
         autovalidateMode: autovalidateMode,
         child: isLoading
-            ? Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Colors.white,
-                      KprimeColor,
-                    ],
-                  ),
-                ),
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: KprimeColor,
-                  ),
-                ),
-              )
+            ? const CustomLoading()
             : Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(

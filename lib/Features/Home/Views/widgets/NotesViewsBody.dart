@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:notely/Models/NoteModel.dart';
 import 'package:notely/NotesCubite/cubit/notes_cubit.dart';
-import 'package:notely/Views/CustomWigets/AddNoteBottomSheet.dart';
-import 'package:notely/Views/CustomWigets/CustomItems.dart';
-import 'package:notely/Views/CustomWigets/CustomPopUpMenu.dart';
-import 'package:notely/Views/CustomWigets/CustomSearchBar.dart';
-import 'package:notely/Views/CustomWigets/CutomHellowBar.dart';
+import 'package:notely/Features/Home/Views/widgets/AddNoteBottomSheet.dart';
+import 'package:notely/Features/Home/Views/widgets/CustomItems.dart';
+import 'package:notely/Features/Home/Views/widgets/CustomPopUpMenu.dart';
+import 'package:notely/Features/Home/Views/widgets/CustomSearchBar.dart';
+import 'package:notely/Features/Home/Views/widgets/CutomHellowBar.dart';
 import 'package:notely/Core/constans.dart';
 
 class NotesViewsBody

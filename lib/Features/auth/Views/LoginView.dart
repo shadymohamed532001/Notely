@@ -4,6 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notely/Core/widgets/CustomSpacer.dart';
+import 'package:notely/Features/auth/Views/widgets/CustomBottomNavigation.dart';
 import 'package:notely/Features/auth/Views/widgets/CustomLoading.dart';
 import 'package:notely/Features/auth/Views/widgets/CustomLogo.dart';
 import 'package:notely/Core/widgets/CustomTextFormFiled.dart';
@@ -275,32 +276,20 @@ class _LoginViewState
                           const CustomSpace(
                             Number: 80,
                           ),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                              Text(
                                 'Dont\'t have an Acount',
                                 style: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w100,
                                 ),
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 10,
                               ),
-                              MaterialButton(
-                                color: const Color.fromARGB(255, 170, 164, 164),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                onPressed: () {
-                                  Navigator.pushNamedAndRemoveUntil(context, kRegisterView, (route) => false);
-                                },
-                                child: const Text(
-                                  'Register',
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              )
+                              CustomBottomNavigation()
                             ],
                           )
                         ],
@@ -326,12 +315,6 @@ class _LoginViewState
             username: widget.name,
           );
         }), (route) => false);
-        // Navigator.pushNamedAndRemoveUntil(
-        //   context,
-        //   kNoteView,
-        //   (route) => false,
-
-        // );
       } else {
         standerDialog(
           context: context,

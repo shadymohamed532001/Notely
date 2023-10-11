@@ -2,16 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notely/Features/Home/Views/widgets/AddNoteForm.dart';
 import 'package:notely/NotesCubite/cubit/notes_cubit.dart';
-import 'package:notely/Views/CustomWigets/AddNoteForm.dart';
 import 'package:notely/add_note_cubite/cubit/add_note_cubite.dart';
 import 'package:notely/add_note_cubite/cubit/add_note_state.dart';
 
-class AddNoteBottomSheet extends StatelessWidget {
-  const AddNoteBottomSheet({super.key});
+class AddNoteBottomSheet
+    extends StatelessWidget {
+  const AddNoteBottomSheet(
+      {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget
+      build(BuildContext context) {
     return BlocProvider(
       create: (context) => AddNoteCubite(),
       child: BlocConsumer<AddNoteCubite, AddNoteState>(

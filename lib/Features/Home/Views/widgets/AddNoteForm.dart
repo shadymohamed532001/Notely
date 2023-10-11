@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:notely/Models/NoteModel.dart';
-import 'package:notely/Views/CustomWigets/ColorsListViews.dart';
+import 'package:notely/Features/EditNote/Views/widgets/ColorsListViews.dart';
 import 'package:notely/Core/widgets/CustomTextFormFiled.dart';
 import 'package:notely/add_note_cubite/cubit/add_note_cubite.dart';
 import 'package:notely/Core/constans.dart';

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notely/Models/NoteModel.dart';
 import 'package:notely/NotesCubite/cubit/notes_cubit.dart';
-import 'package:notely/Views/CustomWigets/CustomAppBar.dart';
+import 'package:notely/Features/EditNote/Views/widgets/CustomAppBar.dart';
 import 'package:notely/Core/widgets/CustomTextFormFiled.dart';
-import 'package:notely/Views/CustomWigets/EditNoteColorsListView.dart';
+import 'package:notely/Features/EditNote/Views/widgets/EditNoteColorsListView.dart';
 
 class EditNotesBodyView
     extends StatefulWidget {
