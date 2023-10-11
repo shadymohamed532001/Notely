@@ -3,31 +3,54 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:notely/Views/CustomWigets/CustomLogo.dart';
-import 'package:notely/Views/CustomWigets/CustomTextFormFiled.dart';
+import 'package:notely/Core/widgets/CustomSpacer.dart';
+import 'package:notely/Features/auth/Views/widgets/CustomLoading.dart';
+import 'package:notely/Features/auth/Views/widgets/CustomLogo.dart';
+import 'package:notely/Core/widgets/CustomTextFormFiled.dart';
 import 'package:notely/Views/CustomWigets/CutomBottom.dart';
-import 'package:notely/Helper/constans.dart';
-import 'package:notely/Views/notesviews.dart';
+import 'package:notely/Core/constans.dart';
+import 'package:notely/Features/Home/Views/notesviews.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key, this.name});
-  final String? name;
+class LoginView
+    extends StatefulWidget {
+  const LoginView(
+      {super.key,
+      this.name});
+  final String?
+      name;
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<LoginView> createState() =>
+      _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
+class _LoginViewState
+    extends State<LoginView> {
+  TextEditingController
+      emailcontroller =
+      TextEditingController();
+  TextEditingController
+      passwordcontroller =
+      TextEditingController();
 
-  final GlobalKey<FormState> _formKey = GlobalKey();
-  AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
-  bool isPasswordShow = true;
-  String _errorMessage = '';
-  bool isLoading = false;
+  final GlobalKey<FormState>
+      _formKey =
+      GlobalKey();
+  AutovalidateMode?
+      autovalidateMode =
+      AutovalidateMode.disabled;
+  bool
+      isPasswordShow =
+      true;
+  String
+      _errorMessage =
+      '';
+  bool
+      isLoading =
+      false;
   @override
-  void dispose() {
+  void
+      dispose() {
     // TODO: implement dispose
     emailcontroller.dispose();
     passwordcontroller.dispose();
@@ -35,29 +58,14 @@ class _LoginViewState extends State<LoginView> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget
+      build(BuildContext context) {
     return Scaffold(
       body: Form(
         key: _formKey,
         autovalidateMode: autovalidateMode,
         child: isLoading
-            ? Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Colors.white,
-                      KprimeColor,
-                    ],
-                  ),
-                ),
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    color: KprimeColor,
-                  ),
-                ),
-              )
+            ? const CustomLoading()
             : Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
@@ -166,9 +174,7 @@ class _LoginViewState extends State<LoginView> {
                                   isPasswordShow = !isPasswordShow;
                                 });
                               },
-                              icon: isPasswordShow
-                                  ? const Icon((Icons.visibility_off))
-                                  : const Icon(Icons.visibility),
+                              icon: isPasswordShow ? const Icon((Icons.visibility_off)) : const Icon(Icons.visibility),
                             ),
                             obscureText: isPasswordShow,
                             keyboardType: TextInputType.visiblePassword,
@@ -186,19 +192,15 @@ class _LoginViewState extends State<LoginView> {
                                 standerDialog(
                                   context: context,
                                   title: 'Your email is empty',
-                                  desc:
-                                      'pelase enter your email to reset your psasword',
+                                  desc: 'pelase enter your email to reset your psasword',
                                 );
                               } else {
                                 standerDialog(
                                   context: context,
                                   title: 'Reset Password',
-                                  desc:
-                                      'please check your email to reset your password',
+                                  desc: 'please check your email to reset your password',
                                 );
-                                await FirebaseAuth.instance
-                                    .sendPasswordResetEmail(
-                                        email: emailcontroller.text);
+                                await FirebaseAuth.instance.sendPasswordResetEmail(email: emailcontroller.text);
                               }
                             },
                             child: Container(
@@ -292,8 +294,7 @@ class _LoginViewState extends State<LoginView> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context, kRegisterView, (route) => false);
+                                  Navigator.pushNamedAndRemoveUntil(context, kRegisterView, (route) => false);
                                 },
                                 child: const Text(
                                   'Register',
@@ -312,15 +313,15 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Future<void> LoginUser(BuildContext context) async {
+  Future<void>
+      LoginUser(BuildContext context) async {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailcontroller.text,
         password: passwordcontroller.text,
       );
       if (credential.user!.emailVerified) {
-        Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (context) {
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
           return NotesViews(
             username: widget.name,
           );
@@ -340,16 +341,15 @@ class _LoginViewState extends State<LoginView> {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == "INVALID_LOGIN_CREDENTIALS") {
-        standerDialog(
-            context: context,
-            title: 'Wrong Email Or Password',
-            desc: 'please check your Email or Password .............');
+        standerDialog(context: context, title: 'Wrong Email Or Password', desc: 'please check your Email or Password .............');
       }
     }
   }
 
-  void validateEmail(String val) {
-    if (!EmailValidator.validate(val, true) && val.isNotEmpty) {
+  void validateEmail(
+      String val) {
+    if (!EmailValidator.validate(val, true) &&
+        val.isNotEmpty) {
       setState(() {
         _errorMessage = "Invalid Email Address";
       });

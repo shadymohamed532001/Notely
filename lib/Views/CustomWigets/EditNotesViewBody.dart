@@ -3,34 +3,40 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notely/Models/NoteModel.dart';
 import 'package:notely/NotesCubite/cubit/notes_cubit.dart';
 import 'package:notely/Views/CustomWigets/CustomAppBar.dart';
-import 'package:notely/Views/CustomWigets/CustomTextFormFiled.dart';
+import 'package:notely/Core/widgets/CustomTextFormFiled.dart';
 import 'package:notely/Views/CustomWigets/EditNoteColorsListView.dart';
 
-class EditNotesBodyView extends StatefulWidget {
-  const EditNotesBodyView({super.key, required this.Notes});
+class EditNotesBodyView
+    extends StatefulWidget {
+  const EditNotesBodyView(
+      {super.key,
+      required this.Notes});
 
-  final NoteModel Notes;
+  final NoteModel
+      Notes;
 
   @override
-  State<EditNotesBodyView> createState() => _EditNotesViewState();
+  State<EditNotesBodyView> createState() =>
+      _EditNotesViewState();
 }
 
-class _EditNotesViewState extends State<EditNotesBodyView> {
-  String? tittle, subtitle;
+class _EditNotesViewState
+    extends State<EditNotesBodyView> {
+  String?
+      tittle,
+      subtitle;
 
   @override
-  Widget build(BuildContext context) {
+  Widget
+      build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomRight,
-                colors: [
-              Colors.white,
-              Colors.grey.withOpacity(0.66),
-              const Color.fromARGB(255, 71, 41, 41).withOpacity(0.77),
-            ])),
+            gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomRight, colors: [
+          Colors.white,
+          Colors.grey.withOpacity(0.66),
+          const Color.fromARGB(255, 71, 41, 41).withOpacity(0.77),
+        ])),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(14),

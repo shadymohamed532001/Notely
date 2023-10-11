@@ -4,36 +4,62 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:notely/Views/CustomWigets/CustomLogo.dart';
-import 'package:notely/Views/CustomWigets/CustomTextFormFiled.dart';
+import 'package:notely/Core/widgets/CustomSpacer.dart';
+import 'package:notely/Features/auth/Views/widgets/CustomLogo.dart';
+import 'package:notely/Core/widgets/CustomTextFormFiled.dart';
 import 'package:notely/Views/CustomWigets/CutomBottom.dart';
-import 'package:notely/Helper/constans.dart';
-import 'package:notely/Views/LoginView.dart';
+import 'package:notely/Core/constans.dart';
+import 'package:notely/Features/auth/Views/LoginView.dart';
 
-class RegisterView extends StatefulWidget {
-  const RegisterView({super.key});
+class RegisterView
+    extends StatefulWidget {
+  const RegisterView(
+      {super.key});
 
   @override
-  State<RegisterView> createState() => _RegisterViewState();
+  State<RegisterView> createState() =>
+      _RegisterViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
-  TextEditingController confirmpasswordcontroller = TextEditingController();
+class _RegisterViewState
+    extends State<RegisterView> {
+  TextEditingController
+      emailcontroller =
+      TextEditingController();
+  TextEditingController
+      passwordcontroller =
+      TextEditingController();
+  TextEditingController
+      confirmpasswordcontroller =
+      TextEditingController();
 
-  TextEditingController namecontroller = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  AutovalidateMode? autovalidateMode = AutovalidateMode.disabled;
-  bool isPasswordShow = true;
-  bool isconfirmPasswordShow = true;
-  String _errorEmailMessage = '';
-  bool isLoading = false;
+  TextEditingController
+      namecontroller =
+      TextEditingController();
+  final GlobalKey<FormState>
+      formKey =
+      GlobalKey<FormState>();
+  AutovalidateMode?
+      autovalidateMode =
+      AutovalidateMode.disabled;
+  bool
+      isPasswordShow =
+      true;
+  bool
+      isconfirmPasswordShow =
+      true;
+  String
+      _errorEmailMessage =
+      '';
+  bool
+      isLoading =
+      false;
 
   // String _errorPasswordMessage = '';
 
   @override
-  void dispose() {
+  void
+      dispose() {
     // TODO: implement dispose
     namecontroller.dispose();
     emailcontroller.dispose();
@@ -42,7 +68,8 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget
+      build(BuildContext context) {
     return Scaffold(
       body: Form(
         key: formKey,
@@ -199,9 +226,7 @@ class _RegisterViewState extends State<RegisterView> {
                                   isPasswordShow = !isPasswordShow;
                                 });
                               },
-                              icon: isPasswordShow
-                                  ? const Icon((Icons.visibility_off))
-                                  : const Icon(Icons.visibility),
+                              icon: isPasswordShow ? const Icon((Icons.visibility_off)) : const Icon(Icons.visibility),
                             ),
                             obscureText: isPasswordShow,
                             controller: passwordcontroller,
@@ -237,13 +262,10 @@ class _RegisterViewState extends State<RegisterView> {
                             suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  isconfirmPasswordShow =
-                                      !isconfirmPasswordShow;
+                                  isconfirmPasswordShow = !isconfirmPasswordShow;
                                 });
                               },
-                              icon: isconfirmPasswordShow
-                                  ? const Icon((Icons.visibility_off))
-                                  : const Icon(Icons.visibility),
+                              icon: isconfirmPasswordShow ? const Icon((Icons.visibility_off)) : const Icon(Icons.visibility),
                             ),
                             obscureText: isconfirmPasswordShow,
                             controller: confirmpasswordcontroller,
@@ -278,8 +300,7 @@ class _RegisterViewState extends State<RegisterView> {
                               }
                             },
                             text: 'Register',
-                            style: const TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w600),
+                            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
                             icon: const Icon(
                               Icons.arrow_forward,
                             ),
@@ -322,8 +343,7 @@ class _RegisterViewState extends State<RegisterView> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context, kLoginView, (route) => false);
+                                  Navigator.pushNamedAndRemoveUntil(context, kLoginView, (route) => false);
                                 },
                                 child: const Text(
                                   'Login',
@@ -341,15 +361,15 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Future<void> RegisterUser(BuildContext context) async {
+  Future<void>
+      RegisterUser(BuildContext context) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailcontroller.text,
         password: passwordcontroller.text,
       );
       FirebaseAuth.instance.currentUser!.sendEmailVerification();
-      Navigator.pushAndRemoveUntil(context,
-          MaterialPageRoute(builder: (context) {
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
         return LoginView(
           name: namecontroller.text,
         );
@@ -393,8 +413,10 @@ class _RegisterViewState extends State<RegisterView> {
     }
   }
 
-  void validateEmail(String val) {
-    if (!EmailValidator.validate(val, true) && val.isNotEmpty) {
+  void validateEmail(
+      String val) {
+    if (!EmailValidator.validate(val, true) &&
+        val.isNotEmpty) {
       setState(() {
         _errorEmailMessage = "Invalid Email Address";
       });

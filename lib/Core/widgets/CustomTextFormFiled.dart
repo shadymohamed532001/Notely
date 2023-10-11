@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:notely/Helper/constans.dart';
+import 'package:notely/Core/constans.dart';
 
-class CustomTextFormFiled extends StatelessWidget {
+class CustomTextFormFiled
+    extends StatelessWidget {
   const CustomTextFormFiled({
     super.key,
     this.onChanged,
     this.onFieldSubmitted,
     this.onSaved,
     required this.hintText,
-    this.maxLine = 1,
+    this.maxLine =
+        1,
     this.filled,
     this.fillColor,
     this.controller,
@@ -19,21 +21,35 @@ class CustomTextFormFiled extends StatelessWidget {
     this.validator,
   });
 
-  final Function(String)? onChanged;
-  final Function(String)? onFieldSubmitted;
-  final void Function(String?)? onSaved;
-  final String? Function(String?)? validator;
-  final String hintText;
-  final int? maxLine;
-  final bool obscureText;
-  final bool? filled;
-  final TextEditingController? controller;
-  final Color? fillColor;
-  final Widget? suffixIcon;
-  final Widget? prefixIcon;
-  final TextInputType? keyboardType;
+  final Function(String)?
+      onChanged;
+  final Function(String)?
+      onFieldSubmitted;
+  final void Function(String?)?
+      onSaved;
+  final String? Function(String?)?
+      validator;
+  final String
+      hintText;
+  final int?
+      maxLine;
+  final bool
+      obscureText;
+  final bool?
+      filled;
+  final TextEditingController?
+      controller;
+  final Color?
+      fillColor;
+  final Widget?
+      suffixIcon;
+  final Widget?
+      prefixIcon;
+  final TextInputType?
+      keyboardType;
   @override
-  Widget build(BuildContext context) {
+  Widget
+      build(BuildContext context) {
     return TextFormField(
       onTapOutside: (Event) {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -60,8 +76,7 @@ class CustomTextFormFiled extends StatelessWidget {
           fillColor: fillColor,
           errorBorder: buildOutlineInputBorder(Colors.red),
           border: buildOutlineInputBorder(),
-          focusedBorder:
-              buildOutlineInputBorder(const Color.fromARGB(255, 66, 21, 21)),
+          focusedBorder: buildOutlineInputBorder(const Color.fromARGB(255, 66, 21, 21)),
           enabledBorder: buildOutlineInputBorder(),
           hintText: hintText,
           hintStyle: TextStyle(
@@ -71,9 +86,9 @@ class CustomTextFormFiled extends StatelessWidget {
   }
 }
 
-OutlineInputBorder buildOutlineInputBorder([color]) {
+OutlineInputBorder
+    buildOutlineInputBorder([color]) {
   return OutlineInputBorder(
       borderRadius: BorderRadius.circular(18),
-      borderSide:
-          BorderSide(color: color ?? Color.fromARGB(255, 196, 187, 187)));
+      borderSide: BorderSide(color: color ?? Color.fromARGB(255, 196, 187, 187)));
 }

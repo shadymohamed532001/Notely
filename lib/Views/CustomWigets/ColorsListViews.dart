@@ -3,19 +3,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notely/add_note_cubite/cubit/add_note_cubite.dart';
-import 'package:notely/Helper/constans.dart';
+import 'package:notely/Core/constans.dart';
 
-class ColorsListView extends StatefulWidget {
-  const ColorsListView({super.key});
+class ColorsListView
+    extends StatefulWidget {
+  const ColorsListView(
+      {super.key});
 
   @override
-  State<ColorsListView> createState() => _ColorsListViewState();
+  State<ColorsListView> createState() =>
+      _ColorsListViewState();
 }
 
-class _ColorsListViewState extends State<ColorsListView> {
-  int currentindex = 0;
+class _ColorsListViewState
+    extends State<ColorsListView> {
+  int currentindex =
+      0;
   @override
-  Widget build(BuildContext context) {
+  Widget
+      build(BuildContext context) {
     return SizedBox(
       height: 38 * 2,
       child: ListView.builder(
@@ -42,13 +48,20 @@ class _ColorsListViewState extends State<ColorsListView> {
   }
 }
 
-class ColorsItem extends StatelessWidget {
-  const ColorsItem({super.key, required this.isactive, required this.color});
+class ColorsItem
+    extends StatelessWidget {
+  const ColorsItem(
+      {super.key,
+      required this.isactive,
+      required this.color});
 
-  final bool isactive;
-  final Color color;
+  final bool
+      isactive;
+  final Color
+      color;
   @override
-  Widget build(BuildContext context) {
+  Widget
+      build(BuildContext context) {
     return isactive
         ? CircleAvatar(
             radius: 38,

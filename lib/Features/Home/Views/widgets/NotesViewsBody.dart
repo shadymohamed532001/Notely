@@ -9,21 +9,30 @@ import 'package:notely/Views/CustomWigets/CustomItems.dart';
 import 'package:notely/Views/CustomWigets/CustomPopUpMenu.dart';
 import 'package:notely/Views/CustomWigets/CustomSearchBar.dart';
 import 'package:notely/Views/CustomWigets/CutomHellowBar.dart';
-import 'package:notely/Helper/constans.dart';
+import 'package:notely/Core/constans.dart';
 
-class NotesViewsBody extends StatefulWidget {
-  const NotesViewsBody({super.key, this.username});
-  final String? username;
+class NotesViewsBody
+    extends StatefulWidget {
+  const NotesViewsBody(
+      {super.key,
+      this.username});
+  final String?
+      username;
 
   @override
-  State<NotesViewsBody> createState() => _NotesViewsBodyState();
+  State<NotesViewsBody> createState() =>
+      _NotesViewsBodyState();
 }
 
-class _NotesViewsBodyState extends State<NotesViewsBody> {
-  late List<NoteModel> searchedfornote;
-  final _controller = TextEditingController();
+class _NotesViewsBodyState
+    extends State<NotesViewsBody> {
+  late List<NoteModel>
+      searchedfornote;
+  final _controller =
+      TextEditingController();
 
-  Widget _buildSearchfiled() {
+  Widget
+      _buildSearchfiled() {
     return TextField(
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -51,17 +60,17 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
     );
   }
 
-  void addserchedforitemstolist(String serachedcaracter) {
-    searchedfornote = BlocProvider.of<NotesCubit>(context)
-        .NotesList!
-        .where((character) =>
-            character.title.toLowerCase().startsWith(serachedcaracter))
-        .toList();
+  void addserchedforitemstolist(
+      String serachedcaracter) {
+    searchedfornote =
+        BlocProvider.of<NotesCubit>(context).NotesList!.where((character) => character.title.toLowerCase().startsWith(serachedcaracter)).toList();
     setState(() {});
   }
 
-  Widget NotesListViews() {
-    return BlocConsumer<NotesCubit, NotesState>(
+  Widget
+      NotesListViews() {
+    return BlocConsumer<NotesCubit,
+        NotesState>(
       listener: (context, state) {
         if (state is NotesSucsess) {}
       },
@@ -79,16 +88,12 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
                   mainAxisSpacing: 3,
                 ),
                 padding: EdgeInsets.zero,
-                itemCount: _controller.text.isEmpty
-                    ? notes.length
-                    : searchedfornote.length,
+                itemCount: _controller.text.isEmpty ? notes.length : searchedfornote.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: CustomItems(
-                      notes: _controller.text.isEmpty
-                          ? notes[index]
-                          : searchedfornote[index],
+                      notes: _controller.text.isEmpty ? notes[index] : searchedfornote[index],
                     ),
                   );
                 },
@@ -101,14 +106,17 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
   }
 
   @override
-  void initState() {
+  void
+      initState() {
     BlocProvider.of<NotesCubit>(context).FitchAllData();
     CheckStateOfUserToevloper();
     super.initState();
   }
 
-  void CheckStateOfUserToevloper() {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  void
+      CheckStateOfUserToevloper() {
+    FirebaseAuth.instance.authStateChanges().listen((User?
+        user) {
       if (user == null) {
         print('User is currently signed out!');
       } else {
@@ -118,7 +126,8 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget
+      build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
@@ -155,18 +164,14 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
           actions: [
             CustomPopUpMenu(
               onTapItem1: () {
-                standerDialog(
-                    context: context,
-                    title: 'Contact Us In Email',
-                    desc: 'Email : shadysteha571@gmail.com');
+                standerDialog(context: context, title: 'Contact Us In Email', desc: 'Email : shadysteha571@gmail.com');
               },
               onTapItem2: () {
                 GoogleSignIn googleSignIn = GoogleSignIn();
                 googleSignIn.disconnect();
 
                 FirebaseAuth.instance.signOut();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, kHomeView, (route) => false);
+                Navigator.pushNamedAndRemoveUntil(context, kHomeView, (route) => false);
               },
             )
           ],
@@ -174,14 +179,11 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
       ),
       body: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomRight,
-                colors: [
-              Colors.white,
-              Colors.grey.withOpacity(0.66),
-              const Color.fromARGB(255, 71, 41, 41).withOpacity(0.77),
-            ])),
+            gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomRight, colors: [
+          Colors.white,
+          Colors.grey.withOpacity(0.66),
+          const Color.fromARGB(255, 71, 41, 41).withOpacity(0.77),
+        ])),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -204,15 +206,11 @@ class _NotesViewsBodyState extends State<NotesViewsBody> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor:
-            const Color.fromARGB(255, 71, 29, 29).withOpacity(0.80),
+        backgroundColor: const Color.fromARGB(255, 71, 29, 29).withOpacity(0.80),
         onPressed: () {
           showModalBottomSheet(
               isScrollControlled: true,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(34),
-                      topRight: Radius.circular(34))),
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(34), topRight: Radius.circular(34))),
               context: context,
               builder: (context) {
                 return const AddNoteBottomSheet();

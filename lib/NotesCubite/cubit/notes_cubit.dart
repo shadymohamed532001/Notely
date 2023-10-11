@@ -5,18 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meta/meta.dart';
 import 'package:notely/Models/NoteModel.dart';
-import 'package:notely/Helper/constans.dart';
+import 'package:notely/Core/constans.dart';
 
 part 'notes_state.dart';
 
-class NotesCubit extends Cubit<NotesState> {
-  NotesCubit() : super(NotesInitial());
+class NotesCubit
+    extends Cubit<NotesState> {
+  NotesCubit()
+      : super(NotesInitial());
 
-  List<NoteModel>? NotesList;
+  List<NoteModel>?
+      NotesList;
 
   FitchAllData() {
-    var Notebox = Hive.box<NoteModel>(kNoteBox);
-    NotesList = Notebox.values.toList();
+    var Notebox =
+        Hive.box<NoteModel>(kNoteBox);
+    NotesList =
+        Notebox.values.toList();
     emit(NotesSucsess());
   }
 }
