@@ -30,9 +30,9 @@ Built a note-taking app (Flutter) enabling users to add, edit, and manage notes 
 Notely offers the following features:
 
 - `Cubit state management`: Notely utilizes Cubit as a state management solution to efficiently handle and update the UI based on the app's internal state.
-- `add notes`: Users can easily add new notes. The app transitions to 'Adding' state, saves the note to local storage, and provides error handling if needed
-- `edit Notes`:   Notely allows smooth editing of notes. The app manages state transitions, updates note content, and handles errors during the process
-- `Save to localdatabase`:  All notes are saved locally for data persistence, ensuring accessibility across app sessions.
+- `Add notes`: Users can easily add new notes. The app transitions to 'Adding' state, saves the note to local storage, and provides error handling if needed
+- `Edit Notes`:   Notely allows smooth editing of notes. The app manages state transitions, updates note content, and handles errors during the process
+- `Saving to Local Database`:  All notes are saved locally for data persistence, ensuring accessibility across app sessions.
 
 
 ## Contributing
