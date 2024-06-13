@@ -45,6 +45,10 @@ We welcome contributions to Notely. To contribute, please follow these steps:
 - Push your changes to the new branch on your forked repository.
 - Submit a pull request to the original repository.
 
+## App Video Link
+
+https://www.linkedin.com/posts/shady-steha-182311230_flutter-flutterdeveloper-dart-activity-7176351885736505344-AjTt?utm_source=share&utm_medium=member_desktop
+
 
 
 
