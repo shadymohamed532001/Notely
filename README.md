@@ -15,6 +15,9 @@ Built a note-taking app (Flutter) enabling users to add, edit, and manage notes 
 <div align="start">
   
 ## Preview
+[Click here to see the video of the app](https://www.linkedin.com/posts/shady-steha-182311230_flutter-flutterdeveloper-dart-activity-7176351885736505344-AjTt/?utm_source=share&utm_medium=member_desktop)
+
+
 
 <br />
 <div align="center">
